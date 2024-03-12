@@ -2,11 +2,7 @@ const { body } = require("express-validator");
 
 const signupValidator = [
   body("name", "Name cannot be empty").notEmpty(),
-  body("email")
-    .notEmpty()
-    .withMessage("Email Cannot be empty")
-    .isEmail()
-    .withMessage("Invalid email address"),
+  body("email", "Invalid email address").isEmail(),
   body("mobile", "Invalid mobile number").isMobilePhone("en-IN"),
 
   /* Anything with less than eight characters OR anything with no numbers OR anything with no uppercase OR or anything with no lowercase OR anything with no special characters is a valid password */
@@ -19,6 +15,12 @@ const signupValidator = [
     ),
 ];
 
+const loginValidator = [
+  body("email", "Invalid email address").isEmail(),
+  body("password", "Password cannot be empty").notEmpty(),
+];
+
 module.exports = {
   signupValidator,
+  loginValidator,
 };

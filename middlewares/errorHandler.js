@@ -25,7 +25,7 @@ const errorHandler = (error, req, res, next) => {
     });
   } else {
     return res.status(500).json({
-      error: ["Internal Server Error"],
+      error: ["Something went wrong! Please try after some time."],
     });
   }
   next();

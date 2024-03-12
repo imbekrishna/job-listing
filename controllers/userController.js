@@ -1,3 +1,4 @@
+const typedefs = require("../typedefs");
 const User = require("../models/user");
 
 /**
@@ -7,7 +8,7 @@ const User = require("../models/user");
  * @param {string} user.email - Email of the user.
  * @param {string} user.mobile - Mobile of the user.
  * @param {string} user.password - Password of the user.
- * @returns {import ('mongoose').Schema.Types.ObjectId} Id of the newly created user
+ * @returns {string} Id of the newly created user
  */
 const createUser = async ({ name, email, mobile, password }) => {
   const newUser = new User({ name, email, mobile, password });
@@ -16,6 +17,32 @@ const createUser = async ({ name, email, mobile, password }) => {
   return newUser._id;
 };
 
+/**
+ * Controller for getting user by their email address.
+ * @param {string} email - Email address of the user
+ * @returns {Promise<typedefs.User|null>} A promise that resolves with the Mongoose document found, or null if not found.
+ */
+const findUserByEmail = async (email) => {
+  const user = await User.findOne({ email });
+  return user;
+};
+
+/**
+ * Controller for getting user by their email address.
+ * @typedef {Object} UserPassword
+ * @property {string} password
+ *
+ * @param {string} email - Email address of the user
+ * @returns {Promise<typedefs.User & UserPassword|null>} A promise that resolves with the Mongoose document found, or null if not found.
+ */
+const findUserByEmailWithPassword = async (email) => {
+  const user = await User.findOne({ email }).select("_id email +password");
+
+  return user;
+};
+
 module.exports = {
   createUser,
+  findUserByEmail,
+  findUserByEmailWithPassword,
 };

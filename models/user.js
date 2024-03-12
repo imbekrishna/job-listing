@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+/**
+ * UserSchema schema
+ * @constructor UserSchema
+ */
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     minLength: 3,
@@ -22,6 +26,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", UserSchema);
 
 module.exports = User;
