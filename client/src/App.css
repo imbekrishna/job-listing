@@ -1,0 +1,295 @@
+/* #region general reset */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+/* #endregion */
+
+:root {
+  /* Colors */
+  --clr-primary: #ed5353;
+  --clr-title: #000000;
+  --clr-body: #525252;
+  --clr-neutral: #c2c2c2;
+  --clr-white: #ffffff;
+
+  --ff-primary: "DM Sans", sans-serif;
+  --fs-body: 1.3rem;
+}
+
+.font--title {
+  color: var(--clr-title);
+  font-size: 2.5rem;
+  font-weight: bold;
+
+  line-height: 144%;
+}
+
+.loader {
+  width: 1.3rem;
+  height: 1.3rem;
+  border: 2px solid #fff;
+  border-bottom-color: var(--clr-primary);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  font-family: var(--ff-primary);
+  font-size: var(--fs-body);
+  font-optical-sizing: auto;
+
+  color: var(--clr-body);
+}
+
+.auth--main {
+  display: flex;
+  height: 100vh;
+  max-height: 100vh;
+}
+
+.auth--form--div {
+  flex: 3;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+/* #region auth forms */
+
+.auth--form {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth--form form,
+.form--btn {
+  margin-block-start: 3rem;
+}
+
+.form--input {
+  display: block;
+  width: 100%;
+  padding-inline: 1.6rem;
+
+  font-size: var(--fs-body);
+
+  border: 2px solid var(--clr-neutral);
+  border-radius: 5px;
+  height: 4rem;
+}
+
+.form--input + .form--input {
+  margin-block-start: 1rem;
+}
+
+.btn {
+  width: 100%;
+
+  border: 0;
+  border-radius: 5px;
+  color: var(--clr-white);
+  background-color: var(--clr-primary);
+}
+
+.form--btn {
+  max-width: 270px;
+  padding-block: 0.8rem;
+  margin-block-end: 0.9rem;
+
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.auth--link {
+  color: var(--clr-title);
+  font-weight: 500;
+}
+
+/* #endregion */
+
+/* #region auth img */
+
+.auth--img--div {
+  flex: 2;
+  position: relative;
+  width: 100%;
+}
+
+.auth--img--div h2 {
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  top: 3rem;
+  color: var(--clr-white);
+}
+
+.auth--img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* #endregion */
+
+/* #region main layout */
+
+main {
+  height: 100vh;
+  min-height: 100vh;
+}
+
+.main--header {
+  position: relative;
+  width: 100%;
+}
+
+.header--img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.header--items {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-inline: 5rem;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+}
+
+.header--items p {
+  margin-right: auto;
+  font-size: 1.87rem;
+  font-weight: bold;
+  color: var(--clr-white);
+}
+
+.auth--btn {
+  padding-block: 0.5em;
+  width: 110px;
+
+  border: 2px solid var(--clr-white);
+  border-radius: 7px;
+
+  color: var(--clr-white);
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+}
+
+.login-btn {
+  margin-inline-end: 1.4rem;
+}
+
+.signup-btn {
+  color: var(--clr-primary);
+  background-color: var(--clr-white);
+}
+
+/* #endregion */
