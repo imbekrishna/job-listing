@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
 import toast from "react-hot-toast";
+import { useCookies } from "react-cookie";
 
 const LoginForm = () => {
+  const [, setCookie] = useCookies(["user"]);
+
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -20,13 +23,13 @@ const LoginForm = () => {
 
     setLoading(true);
     try {
-      // TODO: set usetoken to context
-      await axios.post("/api/auth/login", formData);
+      const result = await axios.post("/api/auth/login", formData);
+      setCookie("user", result.data.data);
       toast.success("Login successful");
       navigate("/");
     } catch (error) {
       const { response } = error;
-      toast.error(response.data.message);
+      toast.error(response.data);
     } finally {
       setLoading(false);
     }

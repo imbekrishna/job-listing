@@ -5,13 +5,16 @@ import AuthPage from "./pages/AuthPage";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import HomePage from "./pages/HomePage";
+import JobsPage from "./pages/JobsPage";
 
 const App = () => {
   return (
     <>
       <Router>
         <Routes>
-          <Route index Component={HomePage} />
+          <Route path="/" Component={HomePage}>
+            <Route path="jobs" Component={JobsPage} />
+          </Route>
           <Route Component={AuthPage}>
             <Route path="login" Component={LoginForm} />
             <Route path="register" Component={RegisterForm} />

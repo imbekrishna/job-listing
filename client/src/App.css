@@ -263,7 +263,7 @@ main {
   align-items: center;
 }
 
-.header--items p {
+.header--items > p {
   margin-right: auto;
   font-size: 1.87rem;
   font-weight: bold;
@@ -271,7 +271,7 @@ main {
 }
 
 .auth--btn {
-  padding-block: 0.5em;
+  padding-block: 0.5rem;
   width: 110px;
 
   border: 2px solid var(--clr-white);
@@ -290,6 +290,28 @@ main {
 .signup-btn {
   color: var(--clr-primary);
   background-color: var(--clr-white);
+}
+
+.logged--user,
+.logout-btn {
+  display: flex;
+  color: var(--clr-white);
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  margin-inline-end: 1.4rem;
+}
+
+.logout-btn {
+  border: none;
+  background: none;
+}
+
+.user--avatar {
+  width: 60px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-inline-start: 1rem;
 }
 
 /* #endregion */
