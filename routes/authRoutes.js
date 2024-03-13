@@ -57,7 +57,10 @@ authRouter.post("/login", loginValidator, async (req, res) => {
     }
   );
 
-  res.status(200).json({ message: "Login success", token });
+  res.status(200).json({
+    message: "Login success",
+    data: { name: user.name, email: user.email, token },
+  });
 });
 
 // TODO: implement refresh token for invalidation

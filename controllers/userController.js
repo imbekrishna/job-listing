@@ -36,7 +36,7 @@ const findUserByEmail = async (email) => {
  * @returns {Promise<typedefs.User & UserPassword|null>} A promise that resolves with the Mongoose document found, or null if not found.
  */
 const findUserByEmailWithPassword = async (email) => {
-  const user = await User.findOne({ email }).select("_id email +password");
+  const user = await User.findOne({ email }).select("_id name email +password");
 
   return user;
 };
