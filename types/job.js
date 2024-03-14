@@ -1,17 +1,4 @@
 /**
- * @namespace typedefs
- */
-
-/**
- * @typedef {Object} User
- * @property {string} _id - Id of the user.
- * @property {string} name - Name of the user.
- * @property {string} email - Email of the user.
- * @property {string} mobile - Mobile of the user.
- * @memberof typedefs
- */
-
-/**
  * @typedef {Object} Job
  * @property {string} _id - The unique identifier for the job listing.
  * @property {string} company - The name of the company offering the job.
@@ -31,5 +18,3 @@
  * @property {string} updatedAt - The time when the job was updated.
  * @memberof typedefs
  */
-
-exports.unused = {};

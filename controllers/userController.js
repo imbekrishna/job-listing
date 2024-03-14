@@ -6,6 +6,7 @@ const { validationResult } = require("express-validator");
 const {
   createUser,
   findUserByEmailWithPassword,
+  findUserByEmail,
 } = require("../services/userServices");
 
 const log = debug("app:userController");

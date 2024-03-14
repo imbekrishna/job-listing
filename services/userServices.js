@@ -1,17 +1,14 @@
-const typedefs = require("../typedefs");
 const User = require("../models/user");
 
 /**
- * Controller for creating new users
- * @param {Object} userData - The user object.
- * @param {string} user.name - Name of the user.
- * @param {string} user.email - Email of the user.
- * @param {string} user.mobile - Mobile of the user.
- * @param {string} user.password - Password of the user.
+ * Create a user with provided data.
+ * @async
+ * @param {User} userData - The user object.
  * @returns {string} Id of the newly created user
+ * @throws {Error} Throws an error if there is an issue with the database operation.
  */
-const createUser = async ({ name, email, mobile, password }) => {
-  const newUser = new User({ name, email, mobile, password });
+const createUser = async (userData) => {
+  const newUser = new User(userData);
   await newUser.save();
 
   return newUser._id;
@@ -20,7 +17,7 @@ const createUser = async ({ name, email, mobile, password }) => {
 /**
  * Controller for getting user by their email address.
  * @param {string} email - Email address of the user
- * @returns {Promise<typedefs.User|null>} A promise that resolves with the Mongoose document found, or null if not found.
+ * @returns {Promise<Omit<User, 'password'>|null>} A promise that resolves with the Mongoose document found, or null if not found.
  */
 const findUserByEmail = async (email) => {
   const user = await User.findOne({ email });
@@ -29,11 +26,8 @@ const findUserByEmail = async (email) => {
 
 /**
  * Controller for getting user with password by their email address for token generation.
- * @typedef {Object} UserPassword
- * @property {string} password
- *
  * @param {string} email - Email address of the user
- * @returns {Promise<typedefs.User & UserPassword|null>} A promise that resolves with the Mongoose document found, or null if not found.
+ * @returns {Promise<User|null>} A promise that resolves with the Mongoose document found, or null if not found.
  */
 const findUserByEmailWithPassword = async (email) => {
   const user = await User.findOne({ email }).select("_id name email +password");
