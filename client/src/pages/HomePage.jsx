@@ -1,5 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
-import headerImage from "../assets/images/main-bg-desktop.svg";
+import headerImage from "../assets/images/bg-desktop.svg";
 import useActiveUser from "../hooks/useActiveUser";
 
 const HomePage = () => {
@@ -31,8 +31,7 @@ const HomePage = () => {
                   className="user--avatar"
                   src="https://picsum.photos/100"
                   alt=""
-                  width="60px"
-                  height="60px"
+                  width="50px"
                 />
               </div>
             </>

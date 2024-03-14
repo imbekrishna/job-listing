@@ -1,48 +1,76 @@
-const typedefs = require("../typedefs");
-const User = require("../models/user");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const debug = require("debug");
+const { validationResult } = require("express-validator");
+
+const {
+  createUser,
+  findUserByEmailWithPassword,
+} = require("../services/userServices");
+
+const log = debug("app:userController");
 
 /**
- * Controller for creating new users
- * @param {Object} userData - The user object.
- * @param {string} user.name - Name of the user.
- * @param {string} user.email - Email of the user.
- * @param {string} user.mobile - Mobile of the user.
- * @param {string} user.password - Password of the user.
- * @returns {string} Id of the newly created user
+ * User controller for registering an user
+ * @param {import('express').Request} req - The Express request object.
+ * @param {import('express').Response} res - The Express response object.
+ * @returns {void}
  */
-const createUser = async ({ name, email, mobile, password }) => {
-  const newUser = new User({ name, email, mobile, password });
-  await newUser.save();
+const registerUser = async (req, res) => {
+  const errors = validationResult(req);
 
-  return newUser._id;
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ erros: errors.array() });
+  }
+
+  const { name, email, mobile, password } = req.body;
+
+  const passwordHash = await bcrypt.hash(password, 10);
+  const userId = await createUser({
+    name,
+    email,
+    mobile,
+    password: passwordHash,
+  });
+
+  res.status(201).json({ message: "User created", id: userId });
 };
 
 /**
- * Controller for getting user by their email address.
- * @param {string} email - Email address of the user
- * @returns {Promise<typedefs.User|null>} A promise that resolves with the Mongoose document found, or null if not found.
+ * User controller for logging in an existing user
+ * @param {import('express').Request} req - The Express request object.
+ * @param {import('express').Response} res - The Express response object.
+ * @returns {void}
  */
-const findUserByEmail = async (email) => {
-  const user = await User.findOne({ email });
-  return user;
-};
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
 
-/**
- * Controller for getting user by their email address.
- * @typedef {Object} UserPassword
- * @property {string} password
- *
- * @param {string} email - Email address of the user
- * @returns {Promise<typedefs.User & UserPassword|null>} A promise that resolves with the Mongoose document found, or null if not found.
- */
-const findUserByEmailWithPassword = async (email) => {
-  const user = await User.findOne({ email }).select("_id name email +password");
+  const user = await findUserByEmailWithPassword(email);
 
-  return user;
+  if (!user) {
+    return res.status(401).json({ message: "User doesn't exists." });
+  }
+
+  const passwordValid = await bcrypt.compare(password, user.password);
+  if (!passwordValid) {
+    return res.status(401).json({ message: "Invalid email or password" });
+  }
+
+  const token = jwt.sign(
+    { id: user._id, email: user.email, name: user.name },
+    process.env.SECRET_KEY,
+    {
+      expiresIn: "14d",
+    }
+  );
+
+  res.status(200).json({
+    message: "Login success",
+    data: { name: user.name, email: user.email, token },
+  });
 };
 
 module.exports = {
-  createUser,
-  findUserByEmail,
-  findUserByEmailWithPassword,
+  registerUser,
+  loginUser,
 };

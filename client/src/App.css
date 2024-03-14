@@ -100,9 +100,12 @@ textarea:not([rows]) {
   --clr-body: #525252;
   --clr-neutral: #c2c2c2;
   --clr-white: #ffffff;
+  --clr-gray: #9c9c9c;
 
   --ff-primary: "DM Sans", sans-serif;
   --fs-body: 1.3rem;
+
+  --bs: 0px 0px 22px 4px #ff202040;
 }
 
 .font--title {
@@ -293,7 +296,8 @@ main {
 }
 
 .logged--user,
-.logout-btn {
+.logout-btn,
+.clear--btn {
   display: flex;
   color: var(--clr-white);
   justify-content: center;
@@ -302,7 +306,8 @@ main {
   margin-inline-end: 1.4rem;
 }
 
-.logout-btn {
+.logout-btn,
+.clear--btn {
   border: none;
   background: none;
 }
@@ -312,6 +317,182 @@ main {
   aspect-ratio: 1;
   border-radius: 50%;
   margin-inline-start: 1rem;
+}
+
+/* #endregion */
+
+/* #region search filter */
+
+/* Rectangle 50 */
+
+.filter--container {
+  max-width: 1100px;
+  margin-inline: auto;
+  margin-block-start: 2rem;
+  padding-block: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  /* TODO: Add color to variable */
+  box-shadow: var(--bs);
+}
+
+/* TODO: Fix height of search input */
+.search--input {
+  width: 100%;
+  width: 100%;
+  max-width: 950px;
+  height: 3.5rem;
+  padding-inline-start: 3.5rem;
+  background: white url("./assets/images/search.svg") no-repeat 1rem center;
+}
+
+.filter--skill--div {
+  display: flex;
+  align-items: end;
+  width: 100%;
+  max-width: 950px;
+}
+
+.skills,
+.skill--options {
+  display: flex;
+  border: 2px solid var(--clr-neutral);
+  border-radius: 7px;
+  font-size: 1.1rem;
+  padding: 0.5rem;
+}
+
+.skills {
+  position: relative;
+  gap: 0.5rem;
+  padding-inline: 1.5rem;
+}
+
+.dd--icon {
+  transition: all 10ms linear;
+}
+
+.dd--icon.dd--open {
+  transform: rotate(180deg);
+}
+
+.skill--options {
+  position: absolute;
+  top: 120%;
+  left: 0;
+  padding-inline: 1rem;
+
+  height: 0;
+  overflow: hidden;
+  border: none;
+
+  flex-direction: column;
+  gap: 0.2rem;
+
+  background-color: var(--clr-white);
+
+  transition: all 10ms linear;
+}
+
+.skill--options.dd--open {
+  height: fit-content;
+  border: inherit;
+}
+
+.skill {
+  opacity: 0;
+}
+
+.skill--options.dd--open .skill {
+  opacity: 1;
+}
+
+.filter--tag--div {
+  display: flex;
+  gap: 1rem;
+  margin-inline: 2rem auto;
+  font-size: 1.1rem;
+}
+
+.filter--tag {
+  background-color: #ffeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.filter--tag > span {
+  padding: 0.5rem;
+  color: var(--clr-title);
+}
+
+.filter--tag > button {
+  border: none;
+  height: 100%;
+  padding: 0.5rem;
+  background-color: var(--clr-primary);
+}
+
+.filter--btn {
+  padding-inline: 1rem;
+  max-width: fit-content;
+}
+
+.clear--btn {
+  margin-inline: 2rem 0;
+  color: var(--clr-primary);
+}
+
+/* #endregion */
+
+/* #region job card */
+
+.job--card {
+  /* FIXME: Remove me */
+  margin-top: 2rem;
+
+  width: 100%;
+  max-width: 1100px;
+  margin-inline: auto;
+  padding: 1.5rem;
+
+  display: flex;
+
+  box-shadow: var(--bs);
+}
+
+.company--icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 12.5px;
+  margin-right: 1rem;
+}
+
+.job--detail {
+  margin-right: auto;
+}
+
+.job--position {
+  font-size: 1.2rem;
+  color: var(--clr-title);
+  font-weight: 500;
+}
+
+.position--info {
+  font-size: 1.1rem;
+  display: flex;
+  gap: 0.5rem;
+  color: var(--clr-gray);
+}
+
+.job--mode {
+  font-size: 0.9rem;
+}
+
+.job--tags {
+  font-size: 1rem;
 }
 
 /* #endregion */
