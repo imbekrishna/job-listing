@@ -16,5 +16,6 @@
  * @property {boolean} featured - Indicates if the job listing is featured.
  * @property {string} postedAt - The time when the job was posted.
  * @property {string} updatedAt - The time when the job was updated.
+ * @property {string} refUserId - Id of the user who created the listing.
  * @memberof typedefs
  */

@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 /**
- * UserSchema schema
- * @constructor UserSchema
+ * Mongoose schema for a user
+ * @type {import('mongoose').Schema<User>}
  */
 const UserSchema = new mongoose.Schema(
   {
@@ -25,6 +25,7 @@ const UserSchema = new mongoose.Schema(
       required: true,
       select: false,
     },
+    listings: [{ type: mongoose.Schema.Types.ObjectId }],
   },
   { timestamps: true }
 );

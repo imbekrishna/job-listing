@@ -5,5 +5,6 @@
  * @property {string} email - Email of the user.
  * @property {string} mobile - Mobile of the user.
  * @property {string} password - Password of the user.
+ * @property {Array<string>} [listings] - Array of Ids of job listings
  * @memberof typedefs
  */

@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-const typedefs = require("../typedefs");
 
 /**
  * Mongoose schema for a job listing.
- * @type {import('mongoose').Schema<typedefs.Job>}
+ * @type {import('mongoose').Schema<Job>}
  */
 const jobSchema = new mongoose.Schema(
   {
@@ -19,7 +18,7 @@ const jobSchema = new mongoose.Schema(
     },
     mode: {
       type: String,
-      enum: ["office" | "remote"],
+      enum: ["office", "remote"],
       default: "remote",
       required: true,
     },
@@ -30,13 +29,14 @@ const jobSchema = new mongoose.Schema(
     information: { type: String },
     new: { type: Boolean, required: true },
     featured: { type: Boolean, required: true },
+    refUserId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: { createdAt: "postedAt", updatedAt: "updatedAt" } }
 );
 
 /**
  * Mongoose model for job listings.
- * @type {import('mongoose').Model<typedefs.Job>}
+ * @type {import('mongoose').Model<Job>}
  */
 const Job = mongoose.model("Job", jobSchema);
 
